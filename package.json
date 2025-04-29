@@ -17,6 +17,17 @@
   },
   "homepage": "https://github.com/Zaphkiel2200/DANIELFRIVAS-LAB#readme",
   "devDependencies": {
-    "husky": "^9.1.7"
+    "@types/node": "^22.15.3",
+    "@vitejs/plugin-legacy": "^6.1.0",
+    "husky": "^9.1.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.3"
+  },
+  "dependencies": {
+    "@lit/reactive-element": "^2.1.0",
+    "@reduxjs/toolkit": "^2.7.0",
+    "lit": "^3.3.0",
+    "redux": "^5.0.1"
   }
 }
