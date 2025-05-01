@@ -1,5 +1,5 @@
 export const fights = [
-    // ===== PELEAS DE CHICAS ===== //
+                        // LAS VIEJAS   //
     {
       id: 'girls1',
       character1: {
@@ -61,7 +61,7 @@ export const fights = [
       }
     },
   
-    // ===== PELEAS DE CHICOS ===== //
+                    // LOS MANES   //
     {
       id: 'boys1',
       character1: {
