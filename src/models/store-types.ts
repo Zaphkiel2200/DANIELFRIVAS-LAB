@@ -13,6 +13,6 @@ export interface Character {
     votes2: number;
   }
   
-  export interface AppState {
-    fights: Fight[];
-  }
+  export type VoteAction = 
+    | { type: 'VOTE'; payload: { fightId: string; character: 1 | 2 } }
+    | { type: 'RESET' };
