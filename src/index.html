@@ -3,13 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Votación Anime</title>
-  <link rel="stylesheet" href="./styles/styles.css">
+  <title>Anime Pairs</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .matches {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 20px;
+    }
+    .match {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .characters {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 15px;
+    }
+    .character {
+      text-align: center;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .character:hover {
+      background-color: #f0f0f0;
+    }
+    .character img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #ddd;
+    }
+    .character h3 {
+      margin: 10px 0 5px;
+      color: #222;
+    }
+    .character p {
+      margin: 0;
+      color: #666;
+      font-size: 0.9em;
+    }
+  </style>
 </head>
 <body>
-  <app-container></app-container>
-
-  <script type="module" src="./components/app-container.ts"></script>
-  <script type="module" src="./components/character-card.ts"></script>
+  <h1>Votaciones Anime</h1>
+  
+  <script src="main.ts" type="module"></script>
 </body>
 </html>
