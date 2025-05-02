@@ -1,57 +1,49 @@
-import { fights, initialVotes } from '../data/characters';
+import { AppState, Action, Match } from './types';
 
-type VoteState = Record<string, { votes1: number; votes2: number }>;
+class Store {
+  private state: AppState;
+  private listeners: (() => void)[] = [];
 
-class VotingStore {
-  private fights = fights;
-  private votes: VoteState;
-  private subscribers: (() => void)[] = [];
-
-  constructor() {
-    this.votes = JSON.parse(localStorage.getItem('votes') || JSON.stringify(initialVotes));
+  constructor(initialState: AppState) {
+    this.state = initialState;
   }
 
-  getFights() {
-    return this.fights.map(fight => ({
-      ...fight,
-      votes1: this.votes[fight.id].votes1,
-      votes2: this.votes[fight.id].votes2
-    }));
+  getState(): AppState {
+    return this.state;
   }
 
-  vote(fightId: string, characterNumber: 1 | 2) {
-    if (!this.votes[fightId]) return;
-
-    if (characterNumber === 1) {
-      this.votes[fightId].votes1++;
-    } else {
-      this.votes[fightId].votes2++;
+  dispatch(action: Action): void {
+    switch (action.type) {
+      case 'INIT':
+        this.state = { matches: action.payload };
+        break;
+      case 'VOTE':
+        this.state = {
+          matches: this.state.matches.map(match => {
+            if (match.id === action.payload.matchId) {
+              if (match.character1.id === action.payload.characterId) {
+                return { ...match, votes1: (match.votes1 || 0) + 1 };
+              } else if (match.character2.id === action.payload.characterId) {
+                return { ...match, votes2: (match.votes2 || 0) + 1 };
+              }
+            }
+            return match;
+          })
+        };
+        break;
+      default:
+        break;
     }
-
-    this.save();
-    this.notifySubscribers();
+    this.notifyListeners();
   }
 
-  resetVotes() {
-    this.votes = JSON.parse(JSON.stringify(initialVotes));
-    this.save();
-    this.notifySubscribers();
+  subscribe(listener: () => void): void {
+    this.listeners.push(listener);
   }
 
-  subscribe(callback: () => void) {
-    this.subscribers.push(callback);
-    return () => {
-      this.subscribers = this.subscribers.filter(sub => sub !== callback);
-    };
-  }
-
-  private save() {
-    localStorage.setItem('votes', JSON.stringify(this.votes));
-  }
-
-  private notifySubscribers() {
-    this.subscribers.forEach(callback => callback());
+  private notifyListeners(): void {
+    this.listeners.forEach(listener => listener());
   }
 }
 
-export const store = new VotingStore();
+export const store = new Store({ matches: [] });
